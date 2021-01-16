@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>{{nome}}</h1>
+        {% for key, url in imgs.items %}
+            {% if  key != 'other' %}
+            <img src="{{url}}">
+            {% endif %}
+        {% endfor %}
+    </body>
+</html>

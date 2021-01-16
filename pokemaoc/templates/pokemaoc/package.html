@@ -1,0 +1,14 @@
+<html>
+    <body>
+        {% block content %}
+        <h2>POKEMON</h2>
+        <form method="get">
+          <input type="text" name="pokemon_name">
+          <button type="submit">search with package</button>
+        </form>
+        {% if sprite %}
+          <p><img src="{{sprite.url}}"></p>
+        {% endif %}
+      {% endblock %}  
+    </body>
+</html>
