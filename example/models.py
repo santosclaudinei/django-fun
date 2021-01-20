@@ -1,24 +1,20 @@
 from django.db import models
 
-class Person(models.Model):
-    id = models.AutoField(primary_key=True)
-    SHIRT_SIZES = (
-        ('S', 'Small'),
-        ('M', 'Medium'),
-        ('L', 'Large'),
-    )
+class Reporter(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    age = models.IntegerField(default=None, blank=True)
-    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES, blank=True)
+    email = models.EmailField()
 
-class Musician(Person):
-    instrument = models.CharField(max_length=100)
+    def __str__(self):
+        return "%s %s" % (self.first_name, self.last_name)
 
-class Album(models.Model):
-    artist = models.ForeignKey(Musician, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    release_date = models.DateField()
-    num_stars = models.IntegerField()
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.headline
 
+    class Meta:
+        ordering = ['headline']
