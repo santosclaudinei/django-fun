@@ -18,7 +18,6 @@ class Publication(models.Model):
     def __str__(self):
         return self.title
 
-
 class Article(models.Model):
     headline = models.CharField(max_length=100)
     pub_date = models.DateField()
