@@ -1,4 +1,4 @@
-"""myproject URL Configuration
+"""awesome_website URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,16 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
 
-from accounts import views as accounts_views
-from boards import views
-
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^signup/$', accounts_views.signup, name='signup'),
-    url(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
-    url(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
-    url(r'^admin/', admin.site.urls),
+    url(r"^", include("users.urls")),
+    url(r"^admin/", admin.site.urls),
 ]
+    
