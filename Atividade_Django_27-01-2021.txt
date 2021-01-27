@@ -1,0 +1,66 @@
+p = Publication(1, 'Depois de dias de muita chuva o sol brilha em Blumenau')
+p2 = Publication(2, 'Oportunidades no reconcavo baiano')
+p3 = Publication(3, 'Dia de sol forte no vale. Temperaturas podem chegar aos 35ºC')
+p4 = Publication(4, 'Mais um dia de Django no Entra21')
+p5 = Publication(5, 'Psicoterapia em alta e em preço acessivel')
+p6 = Publication(6, 'Reta final do Entra21 Traz preocupação com projetos finais')
+p7 = Publication(7, 'Projetos finais da turma de Python está quase no final')
+p8 = Publication(8, 'Beba agua, se hidrate porque temperaturas irão subir')
+p9 = Publication(9, 'Oportunidades na area de desenvolvimento na região do vale')
+p10 = Publication(10, 'Senior fará visita a turma do Entra21 nessa semana')
+
+a = Article(1, 'shauza', '2020-01-27', r1.id)
+a2 = Article(2, 'garra', '2018-06-24', r4.id)
+a3 = Article(3, 'farra', '2020-02-18', r3.id)
+a4 = Article(4, 'sarra', '2019-12-07', r2.id)
+a5 = Article(5, 'barra', '2021-01-17', r5.id)
+
+r1 = Reporter(4, 'Claudinei', 'Santos', 'claudinei@gmail.com')
+r2 = Reporter(5, 'Solange', 'Santos', 'sms@gmail.com')
+r3 = Reporter(6, 'Irenio', 'Santos', 'jirenio@hotmail.com')
+r4 = Reporter(7, Joara', 'Souza', 'joara@yahoo.com.br')
+r5 = Reporter(8, 'Andrea', 'Santos', andrea@hotmail.com.br')
+
+
+
+a = p, p3
+a2 = p2, p9
+a3 = p4, p6
+a4 = p5, p8
+a5 = p7, p10
+
+
+-> todas os artigos de determinado reporter
+rs = Article.objects.filter(reporter__first_name='Claudinei') 
+rs
+<QuerySet [<Article: shauza>]>
+
+ 
+-> todos os artigos de entre 2019-2020
+
+
+limiar = Article.objects.order_by('pub_date').all()[1:4]
+limiar
+<QuerySet [<Article: sarra>, <Article: shauza>, <Article: farra>]>
+
+
+-> o reporter com mais artigos em 2020 
+ 
+
+-> artigos que contenham a palvra "arra"
+ e tenham sido publicados 
+por determinado reporter Irenio em fevereiro de 2020
+
+filtro = Article.objects.filter(headline__contains='arra', reporter_id=6, pub_date__year=2020, pub_date__month=2)
+filtro
+[<Article: farra>]>
+
+
+-> A quantidade de publicacoes que tenham 
+o numero "3"
+
+pesquisa = Publication.objects.filter(title__contains='3')
+pesquisa
+<QuerySet [<Publication: Dia de sol forte no vale. Temperaturas podem chegar aos 35ºC>]>
+
+-> A media de publicacoes por artigos
