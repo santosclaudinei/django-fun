@@ -23,14 +23,15 @@ r5 = Reporter(8, 'Andrea', 'Santos', andrea@hotmail.com.br')
 
 
 
-a = p, p3
-a2 = p2, p9
-a3 = p4, p6
-a4 = p5, p8
-a5 = p7, p10
+a = p, p3, p10
+a2 = p2, p6, p8, p9
+a3 = p4 
+a4 = p5 
+a5 = p7 
 
 
 -> todas os artigos de determinado reporter
+
 rs = Article.objects.filter(reporter__first_name='Claudinei') 
 rs
 <QuerySet [<Article: shauza>]>
@@ -38,29 +39,38 @@ rs
  
 -> todos os artigos de entre 2019-2020
 
-
 limiar = Article.objects.order_by('pub_date').all()[1:4]
 limiar
 <QuerySet [<Article: sarra>, <Article: shauza>, <Article: farra>]>
 
 
 -> o reporter com mais artigos em 2020 
- 
 
--> artigos que contenham a palvra "arra"
- e tenham sido publicados 
-por determinado reporter Irenio em fevereiro de 2020
+ maior = Reporter.objects.filter(article__pub_date__year='2020').annotate(num_articles=Count('article')).order_by('-num_articles')[0]
+>>> maior
+<Reporter: Claudinei Santos>
+
+-> artigos que contenham a palvra "arra" e tenham sido publicados por determinado reporter Irenio em fevereiro de 2020
 
 filtro = Article.objects.filter(headline__contains='arra', reporter_id=6, pub_date__year=2020, pub_date__month=2)
 filtro
 [<Article: farra>]>
 
 
--> A quantidade de publicacoes que tenham 
-o numero "3"
+-> A quantidade de publicacoes que tenham o numero "3"
 
-pesquisa = Publication.objects.filter(title__contains='3')
+pesquisa = Publication.objects.filter(title__contains='3').count()
 pesquisa
-<QuerySet [<Publication: Dia de sol forte no vale. Temperaturas podem chegar aos 35ºC>]>
+1
+
 
 -> A media de publicacoes por artigos
+
+from django.db.models import Count
+from django.db.models import Avg
+
+media = Article.objects.annotate(num_publications=Count('publications')).aggregate(Avg('num_publications'))
+
+media
+
+{'num_publications__avg': 2.0}
